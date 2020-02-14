@@ -57,7 +57,7 @@
                            @can('update',$quest)
                                  <a href="{{route('questions.edit',$quest->id)}}" class="btn btn-sm btn-outline-warning">Edit</a>
              @endcan
-                             </div>
+                          
                                  @can('delete',$quest)
                              <form method="post" class="form-delete" action="{{route('questions.destroy',$quest->id)}}">
                                  @method('DELETE')
@@ -67,6 +67,7 @@
                                  </button>
                              </form>
                                        @endcan
+                                          </div>
                          </div>
                          
                              <p class="lead">

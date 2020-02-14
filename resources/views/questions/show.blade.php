@@ -26,7 +26,7 @@
                             <a class="votes-down off">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
-                            <a class="favorite mt-2">
+                            <a class="favorite mt-2 fabs">
                                       <i class="fas fa-star fa-2x"></i>
                                 <span class="faborite">
                                     1234
@@ -66,6 +66,30 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card-title">
+                        
+                        <h2>Your Answer</h2>
+                             @include('layouts._message')
+                             
+                        <form action="{{route('questions.answers.store',$question->id)}}" method="POST">
+                            @csrf
+                            
+                            <div class="form-group">
+                              <textarea rows="10" class="form-control {{ $errors->has('body') ? ' is-invalid' : '' }}"
+                                      id="question-body" name="body"> {{ old('body')}}</textarea>
+                            @if ($errors->has('body'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('body') }}</strong>
+                            </span>
+                            @endif
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                            </div>
+                            
+                            
+                        </form>
+                        <hr>
                         <h3>
                             {{ $question->answers_count}}
                             {{str_plural('Answers',$question->answers_count)  }}
@@ -74,9 +98,42 @@
                     <hr>
                     @foreach($question->answers as $answer)
                     <div class="media">
+                         <div class="d-flex flex-column votes-control">
+                            <a class="vote-up">
+                                <i class="fas fa-caret-up fa-3x"></i>
+                            </a>
+                            <span class="votes-count">1205</span>
+                            <a class="votes-down off">
+                                <i class="fas fa-caret-down fa-3x"></i>
+                            </a>
+                            <a class="favorite mt-2 vote-accpet">
+                                      <i class="fas fa-check fa-2x"></i>
+                               
+                            </a>
+                        </div>
                         <div class="media-body">
                             {!! $answer->body_text !!}
-                            <div class="float-right">
+                            <div class="row">
+                                <div class="col-md-4">
+                                             <div class="ml-auto">
+                           @can('update',$answer)
+                                 <a href="{{route('questions.answers.edit',[$question->id,$answer->id])}}" class="btn btn-sm btn-outline-warning">Edit</a>
+             @endcan
+                          
+                                 @can('delete',$answer)
+                             <form method="post" class="form-delete" action="{{route('questions.answers.destroy',[$question->id,$answer->id])}}">
+                                 @method('DELETE')
+                                 @csrf
+                                 <button onclick="return confirm('Are You Sure??')" class="btn btn-sm btn-outline-secondary" 
+                                         type="submit">Delete
+                                 </button>
+                             </form>
+                                       @endcan
+                                          </div>
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                       <div class="float-right">
                                 <span>
                                     Answered:{{ $answer->create_date}}
                                 </span>
@@ -92,6 +149,11 @@
                                     </div>
                                 </div>
                             </div>
+                                </div>
+                            </div>
+                            
+                                
+                             
                         </div>
                     </div>
                     <hr>

@@ -11971,3 +11971,45 @@ a.text-dark:focus {
   color: #fff;
 }
 
+.form-delete {
+  display: inline;
+}
+
+.votes-control {
+  margin-right: 30px;
+  min-width: 60px;
+  text-align: center;
+  color: #495057;
+}
+
+.votes-control span,
+.votes-control a {
+  display: block;
+}
+
+.votes-control span.votes-count {
+  font-size: 25px;
+}
+
+.votes-control span.faborite {
+  font-size: 12px;
+}
+
+.votes-control a {
+  cursor: pointer;
+}
+
+.votes-control a.off,
+.votes-control a.off:hover {
+  color: #adb5bd;
+}
+
+.votes-control a.favorite.fabs,
+.votes-control a.favorite.fabs:hover {
+  color: #4dc0b5;
+}
+
+.votes-control a.vote-accpet {
+  color: #38c172;
+}
+
